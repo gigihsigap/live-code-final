@@ -53,19 +53,26 @@ class Controller {
                 console.log('Country ID:')
                 console.log(report[0].CountryId)
 
+                let output = []
+
                 for (let i = 0; i < report.length; i++) {
+                    report[i].country = ''
                     Country.findOne({ where: { id: report[i].CountryId }})
                     .then((data) => {
-                        report[i].country = data
+                        // console.log(data)
+                        report[i]['country'] = data
+                        // console.log('REPORT:')
+                        // console.log(report[i])
+                        output.push(report[i])
+                        console.log(output)
+                        // res.status(200).json(report[i])
                     })
                     .catch(next)
                 }
-                res.status(200).json(report)
-                // Country.findOne({ where: { id: report.CountryId }})
-                // .then((country) => {
-                //     res.status(200).json({report, country})
-                // })
-                // .catch(next)
+                console.log('================')
+                console.log(output)
+                // console.log(report)
+                res.status(200).json(output)
             } else {
                 res.status(200).json({ message: 'No report data yet!' })
             }
