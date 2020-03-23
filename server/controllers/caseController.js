@@ -53,12 +53,10 @@ class Controller {
                 console.log('Country ID:')
                 console.log(report[0].CountryId)
 
-                let arr = []
-
                 for (let i = 0; i < report.length; i++) {
                     Country.findOne({ where: { id: report[i].CountryId }})
-                    .then((country) => {
-                        arr.push(country)
+                    .then((data) => {
+                        report[i].country = data
                     })
                     .catch(next)
                 }
